@@ -1,0 +1,5 @@
+<resources>
+    <string name="app_name">Counter</string>
+    <string name="buttonStSp">ButtonStSp</string>
+    <string name="textCounter"></string>
+</resources>
