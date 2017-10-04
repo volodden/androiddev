@@ -76,7 +76,7 @@ public class CounterActivity extends AppCompatActivity {
         private TextGetter textGetter = new TextGetter();
 
         public CounterOnDisplay(long millisInFuture, long countDownInterval) {
-            super(millisInFuture, countDownInterval);
+            super(millisInFuture + 100, countDownInterval);
 
             TextView textCounter = (TextView) findViewById(R.id.textCounter);
             textCounter.setText(textGetter.input(time));
@@ -94,11 +94,10 @@ public class CounterActivity extends AppCompatActivity {
             time = 0;
 
             Button buttonStSp = (Button) findViewById(R.id.buttonStSp);
-            buttonStSp.setText(textOff);
+            buttonStSp.setText(textOn);
 
             TextView textCounter = (TextView) findViewById(R.id.textCounter);
             textCounter.setText(R.string.textCounter);
-
         }
     }
 
@@ -147,13 +146,13 @@ public class CounterActivity extends AppCompatActivity {
         }
 
         String input(int number) {
-            if( ( number < 0 ) || ( number > 1000 ) ) {
+            if( ( number < 0 ) || ( number >= maxTime + 1 ) ) {
                 return "Error";
             }
 
             Boolean flag = false;
 
-            //number++;
+            number++;
 
             StringBuilder stringBuilder = new StringBuilder(" ");
 
