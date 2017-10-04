@@ -91,11 +91,14 @@ public class CounterActivity extends AppCompatActivity {
 
         @Override
         public void onFinish() {
+            time = 0;
+
             Button buttonStSp = (Button) findViewById(R.id.buttonStSp);
             buttonStSp.setText(textOff);
 
             TextView textCounter = (TextView) findViewById(R.id.textCounter);
             textCounter.setText(R.string.textCounter);
+
         }
     }
 
