@@ -102,10 +102,12 @@ public class CalcDisplayActivity extends AppCompatActivity {
     }
 
     void changeResult() {
-        Log.i("ChRes", String.valueOf(numberInButtons + numberInTextField));
+        int res = numberInButtons * numberInTextField;
 
-        TextView twSum = (TextView) findViewById(R.id.textSum);
-        twSum.setText(String.valueOf(numberInButtons + numberInTextField));
+        Log.i("ChRes", String.valueOf(res));
+
+        TextView twSum = (TextView) findViewById(R.id.textMult);
+        twSum.setText(String.valueOf(res));
     }
 
     void onClickOnMinus(View view) {

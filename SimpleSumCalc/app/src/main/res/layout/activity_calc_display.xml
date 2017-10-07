@@ -56,10 +56,10 @@
         app:layout_constraintLeft_toLeftOf="parent" />
 
     <TextView
-        android:id="@+id/textSum"
+        android:id="@+id/textMult"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/sum"
+        android:text="@string/mult"
         app:layout_constraintTop_toBottomOf="@+id/textField"
         android:layout_marginTop="10dp"
         app:layout_constraintRight_toRightOf="parent"
