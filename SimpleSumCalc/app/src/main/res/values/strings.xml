@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name">SimpleSumCalc</string>
+    <string name="plus">+</string>
+    <string name="minus">-</string>
+    <string name="textDefault">123</string>
+    <string name="sum">Sum: 0</string>
+</resources>
