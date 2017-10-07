@@ -106,8 +106,11 @@ public class CalcDisplayActivity extends AppCompatActivity {
 
         Log.i("ChRes", String.valueOf(res));
 
-        TextView twSum = (TextView) findViewById(R.id.textMult);
-        twSum.setText(String.valueOf(res));
+        TextView twSum = (TextView) findViewById((R.id.textMult));
+
+        String sRes = getResources().getString(R.string.mult);
+
+        twSum.setText(sRes + String.valueOf(res));
     }
 
     void onClickOnMinus(View view) {

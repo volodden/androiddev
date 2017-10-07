@@ -3,5 +3,5 @@
     <string name="plus">+</string>
     <string name="minus">-</string>
     <string name="textDefault">10</string>
-    <string name="mult">0</string>
+    <string name="mult">"Result: "</string>
 </resources>
