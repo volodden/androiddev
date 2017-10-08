@@ -14,8 +14,6 @@ import java.util.Map;
 
 public class CounterActivity extends AppCompatActivity {
 
-    private final String textOff = "stop";
-    private final String textOn = "start";
     private int time = 0;
     private final int maxTime = 999;
     private CounterOnDisplay timer;
@@ -34,15 +32,15 @@ public class CounterActivity extends AppCompatActivity {
             time = savedInstanceState.getInt(STATE_TIME);
             Button buttonStSp = (Button) findViewById(R.id.buttonStSp);
             if( time == 0 ) {
-                buttonStSp.setText(textOn);
+                buttonStSp.setText(R.string.start);
             } else {
-                buttonStSp.setText(textOff);
+                buttonStSp.setText(R.string.stop);
                 timer = new CounterOnDisplay((maxTime - time)*1000, 1000);
                 timer.start();
             }
         } else {
             Button buttonStSp = (Button) findViewById(R.id.buttonStSp);
-            buttonStSp.setText(textOn);
+            buttonStSp.setText(R.string.start);
         }
     }
 
@@ -58,13 +56,13 @@ public class CounterActivity extends AppCompatActivity {
     void onClickOnButton( View view ) {
         Button buttonStSp = (Button) findViewById(R.id.buttonStSp);
         String text = (String) buttonStSp.getText();
-        if( text.equals(textOn) ) {
-            buttonStSp.setText(textOff);
+        if( text.equals(R.string.start) ) {
+            buttonStSp.setText(R.string.stop);
             time = 0;
             timer = new CounterOnDisplay(maxTime*1000, 1000);
             timer.start();
         } else {
-            buttonStSp.setText(textOn);
+            buttonStSp.setText(R.string.start);
             TextView textCounter = (TextView) findViewById(R.id.textCounter);
             textCounter.setText(R.string.textCounter);
             timer.cancel();
@@ -94,7 +92,7 @@ public class CounterActivity extends AppCompatActivity {
             time = 0;
 
             Button buttonStSp = (Button) findViewById(R.id.buttonStSp);
-            buttonStSp.setText(textOn);
+            buttonStSp.setText(R.string.start);
 
             TextView textCounter = (TextView) findViewById(R.id.textCounter);
             textCounter.setText(R.string.textCounter);
