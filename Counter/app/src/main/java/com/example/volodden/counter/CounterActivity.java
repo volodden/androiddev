@@ -16,7 +16,7 @@ public class CounterActivity extends AppCompatActivity {
 
     private int time = 0;
     private final int maxTime = 999;
-    private CounterOnDisplay timer;
+    private CounterOnDisplay timer = null;
 
     static final String STATE_TIME = "time";
 
@@ -48,7 +48,11 @@ public class CounterActivity extends AppCompatActivity {
     public void onSaveInstanceState(Bundle savedInstanceState) {
         savedInstanceState.putInt(STATE_TIME, time);
 
-        timer.cancel();
+        if( timer != null ) {
+
+            timer.cancel();
+
+        }
 
         super.onSaveInstanceState(savedInstanceState);
     }
@@ -56,7 +60,7 @@ public class CounterActivity extends AppCompatActivity {
     void onClickOnButton( View view ) {
         Button buttonStSp = (Button) findViewById(R.id.buttonStSp);
         String text = (String) buttonStSp.getText();
-        if( text.equals(R.string.start) ) {
+        if( text.equals(getResources().getString(R.string.start)) ) {
             buttonStSp.setText(R.string.stop);
             time = 0;
             timer = new CounterOnDisplay(maxTime*1000, 1000);
