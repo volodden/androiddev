@@ -57,7 +57,7 @@ public class CounterActivity extends AppCompatActivity {
         super.onSaveInstanceState(savedInstanceState);
     }
 
-    void onClickOnButton( View view ) {
+    public void onClickOnButton( View view ) {
         Button buttonStSp = (Button) findViewById(R.id.buttonStSp);
         String text = (String) buttonStSp.getText();
         if( text.equals(getResources().getString(R.string.start)) ) {
