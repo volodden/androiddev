@@ -113,11 +113,11 @@ public class CalcDisplayActivity extends AppCompatActivity {
         twSum.setText(sRes + String.valueOf(res));
     }
 
-    void onClickOnMinus(View view) {
+    public void onClickOnMinus(View view) {
         onClickOnButton(-1);
     }
 
-    void onClickOnPlus(View view) {
+    public void onClickOnPlus(View view) {
         onClickOnButton(1);
     }
 }
