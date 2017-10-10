@@ -67,10 +67,22 @@ public class CounterActivity extends AppCompatActivity {
             TextView textCounter = (TextView) findViewById(R.id.textCounter);
             textCounter.setText(R.string.textCounter);
             timer.cancel();
-
         }
 
         super.onPause();
+    }
+
+    @Override
+    public void onResume() {
+
+        if( time != 0 ) {
+            Button buttonStSp = (Button) findViewById(R.id.buttonStSp);
+            buttonStSp.setText(R.string.stop);
+            timer = new CounterOnDisplay((maxTime - time)*1000, 1000);
+            timer.start();
+        }
+
+        super.onResume();
     }
 
     public void onClickOnButton( View view ) {
