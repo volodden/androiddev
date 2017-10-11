@@ -4,4 +4,5 @@
     <string name="minus">-</string>
     <string name="textDefault">10</string>
     <string name="mult">"Result: "</string>
+    <string name="openButton">"Open Calc!"</string>
 </resources>
