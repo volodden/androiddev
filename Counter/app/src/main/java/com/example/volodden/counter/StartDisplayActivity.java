@@ -31,6 +31,7 @@ public class StartDisplayActivity extends AppCompatActivity {
 
                 Intent intent = new Intent(thisActivity, CounterActivity.class);
                 startActivity(intent);
+                thisActivity.finish();
             }
         }.start();
 
