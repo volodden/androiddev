@@ -9,7 +9,6 @@ import android.net.Uri;
 import android.provider.Settings;
 import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AlertDialog;
-import android.util.Log;
 
 public class PermissionChecker {
 
@@ -20,7 +19,7 @@ public class PermissionChecker {
 
     public static void showPermissionDialog(final Context context) {
 
-        Log.i("ALERT", "Create dialog");
+        //Log.i("ALERT", "Create dialog");
 
         AlertDialog.Builder builder = new AlertDialog.Builder(context);
         String title = context.getResources().getString(R.string.app_name);
@@ -51,7 +50,7 @@ public class PermissionChecker {
         AlertDialog dialog = builder.create();
         dialog.show();
 
-        Log.i("ALERT", "Open dialog");
+        //Log.i("ALERT", "Open dialog");
     }
 
 }

@@ -1,43 +1,52 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:orientation="horizontal"
-    android:layout_width="fill_parent"
-    android:layout_height="fill_parent"
-    android:baselineAligned="false">
+<HorizontalScrollView xmlns:android="http://schemas.android.com/apk/res/android"
 
-    <fragment
-        android:id="@+id/fragmentA"
-        android:name="com.example.volodden.myphoneapplication.AFragment"
-        android:layout_height="match_parent"
-        android:layout_width="match_parent"
-        android:layout_weight="2"
-        tools:layout="@layout/fragment_a" />
+    android:id="@+id/scrollView"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:tools="http://schemas.android.com/tools">
 
     <LinearLayout
-        android:orientation="vertical"
-        android:layout_weight="1"
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_width="match_parent" >
+        android:baselineAligned="false"
+        tools:ignore="ScrollViewSize">
 
         <fragment
-            android:id="@+id/fragmentB"
-            android:name="com.example.volodden.myphoneapplication.BFragment"
-            android:layout_width="match_parent"
+            android:id="@+id/fragmentA"
+            android:name="com.example.volodden.myphoneapplication.AFragment"
             android:layout_height="match_parent"
-            android:layout_weight="0.5"
-            tools:layout="@layout/fragment_b"
-            tools:ignore="NestedWeights" />
+            android:layout_width="384dp"
+            tools:layout="@layout/fragment_a"
+            tools:ignore="InefficientWeight" />
 
-        <fragment
-            android:id="@+id/fragmentC"
-            android:name="com.example.volodden.myphoneapplication.CFragment"
-            android:layout_width="match_parent"
+        <LinearLayout
+            android:id="@+id/fragments_B_and_C"
+            android:orientation="vertical"
             android:layout_height="match_parent"
-            android:layout_weight="0.5"
-            tools:layout="@layout/fragment_c" />
+            android:layout_width="384dp" >
+
+            <fragment
+                android:id="@+id/fragmentB"
+                android:name="com.example.volodden.myphoneapplication.BFragment"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="0.5"
+                tools:layout="@layout/fragment_b"
+                tools:ignore="NestedWeights" />
+
+            <fragment
+                android:id="@+id/fragmentC"
+                android:name="com.example.volodden.myphoneapplication.CFragment"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="0.5"
+                tools:layout="@layout/fragment_c" />
+
+        </LinearLayout>
 
     </LinearLayout>
 
-</LinearLayout>
+</HorizontalScrollView>

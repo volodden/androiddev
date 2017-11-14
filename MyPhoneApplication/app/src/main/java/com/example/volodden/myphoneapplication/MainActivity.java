@@ -1,10 +1,15 @@
 package com.example.volodden.myphoneapplication;
 
+import android.content.res.Configuration;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
+import android.util.DisplayMetrics;
+import android.view.Display;
+import android.view.View;
 import android.widget.EditText;
+import android.widget.HorizontalScrollView;
 
 public class MainActivity extends FragmentActivity implements AFragment.OnSelectedButtonListener,
         C1Fragment.OnSelectedButtonListener, C2Fragment.OnSelectedButtonListener {
@@ -13,6 +18,27 @@ public class MainActivity extends FragmentActivity implements AFragment.OnSelect
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        if( getResources().getConfiguration().orientation == Configuration.ORIENTATION_PORTRAIT ) {
+            Display display = getWindowManager().getDefaultDisplay();
+            DisplayMetrics metricsB = new DisplayMetrics();
+            display.getMetrics(metricsB);
+
+            View fragmentA = findViewById(R.id.fragmentA);
+
+            //Log.i("PORIENT", "A w: " + String.valueOf(fragmentA.getWidth()));
+
+            fragmentA.getLayoutParams().width = metricsB.widthPixels;
+
+            //Log.i("PORIENT", "A w: " + String.valueOf(metricsB.widthPixels));
+            //Log.i("PORIENT", "A w: " + String.valueOf(fragmentA.getWidth()));
+
+            View fragmentsBAndC = findViewById(R.id.fragments_B_and_C);
+
+            fragmentsBAndC.getLayoutParams().width = metricsB.widthPixels;
+
+            //Log.i("PORIENT", "BC w: " + String.valueOf(metricsB.widthPixels));
+        }
     }
 
     @Override
@@ -31,6 +57,11 @@ public class MainActivity extends FragmentActivity implements AFragment.OnSelect
         }
 
         transaction.commitAllowingStateLoss();
+
+        if( getResources().getConfiguration().orientation == Configuration.ORIENTATION_PORTRAIT ) {
+            HorizontalScrollView sv = (HorizontalScrollView) findViewById(R.id.scrollView);
+            sv.scrollTo(sv.getMaxScrollAmount()*2, 0);
+        }
     }
 
     @Override
