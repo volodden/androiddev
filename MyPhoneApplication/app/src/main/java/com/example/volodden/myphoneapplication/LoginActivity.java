@@ -33,6 +33,7 @@ import android.widget.TextView;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.ExecutionException;
 
 import static android.Manifest.permission.READ_CONTACTS;
 
@@ -77,7 +78,13 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
             @Override
             public boolean onEditorAction(TextView textView, int id, KeyEvent keyEvent) {
                 if (id == R.id.login || id == EditorInfo.IME_NULL) {
-                    attemptLogin();
+                    try {
+                        attemptLogin();
+                    } catch (ExecutionException e) {
+                        e.printStackTrace();
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
                     return true;
                 }
                 return false;
@@ -88,7 +95,13 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
         mEmailSignInButton.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View view) {
-                attemptLogin();
+                try {
+                    attemptLogin();
+                } catch (ExecutionException e) {
+                    e.printStackTrace();
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
             }
         });
 
@@ -145,7 +158,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
      * If there are form errors (invalid email, missing fields, etc.), the
      * errors are presented and no actual login attempt is made.
      */
-    private void attemptLogin() {
+    private void attemptLogin() throws ExecutionException, InterruptedException {
         if (mAuthTask != null) {
             return;
         }
@@ -161,31 +174,13 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
         boolean cancel = false;
         View focusView = null;
 
-
-
-
-
-
-
-
-        // Не забыть удалить!
-
-        Intent intent2 = new Intent(this, MainActivity.class);
-        startActivity(intent2);
-        this.finish();
-
-
-
-
-
-
-
-
-
-
-
         // Check for a valid password, if the user entered one.
-        if (!TextUtils.isEmpty(password) && !isPasswordValid(password)) {
+
+        Log.i("PWD", String.valueOf(TextUtils.isEmpty(password)));
+        Log.i("PWD", String.valueOf(isPasswordValid(password)));
+        Log.i("PWD", "llmlm" + ' ' + password + ' ' + password.length());
+
+        if (TextUtils.isEmpty(password) || !isPasswordValid(password)) {
             mPasswordView.setError(getString(R.string.error_invalid_password));
             focusView = mPasswordView;
             cancel = true;
@@ -211,12 +206,14 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
             // perform the user login attempt.
             showProgress(true);
             mAuthTask = new UserLoginTask(email, password);
-            mAuthTask.execute((Void) null);
+            AsyncTask<Void, Void, Boolean> task = mAuthTask.execute();
 
-            Intent intent = new Intent(this, MainActivity.class);
-            startActivity(intent);
+            if( task.get() ) {
+                Intent intent = new Intent(this, MainActivity.class);
+                startActivity(intent);
 
-            this.finish();
+                this.finish();
+            }
         }
     }
 
@@ -351,6 +348,9 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
             for (String credential : DUMMY_CREDENTIALS) {
                 String[] pieces = credential.split(":");
                 if (pieces[0].equals(mEmail)) {
+
+                    Log.i("PWD", mEmail + ' ' + pieces[0]);
+                    Log.i("PWD", mPassword + ' ' + pieces[1]);
                     // Account exists, return true if the password matches.
                     return pieces[1].equals(mPassword);
                 }
@@ -363,14 +363,16 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
         @Override
         protected void onPostExecute(final Boolean success) {
 
-            Log.i("LOGIN", "onPostExecute");
-
             mAuthTask = null;
             showProgress(false);
 
+            Log.i("LOGIN", "onPostExecute" + ' ' + success);
+
             if (success) {
-                finish();
+                //finish();
             } else {
+                Log.i("LOGIN", "error");
+
                 mPasswordView.setError(getString(R.string.error_incorrect_password));
                 mPasswordView.requestFocus();
             }
