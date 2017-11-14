@@ -24,8 +24,10 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:ems="10"
-            android:inputType="text"
-            android:text="@string/enter_sms_input"/>
+            android:inputType="textMultiLine"
+            android:lines="3"
+            android:text="@string/enter_sms_input"
+            tools:ignore="LabelFor" />
 
         <Button
             android:layout_width="wrap_content"
