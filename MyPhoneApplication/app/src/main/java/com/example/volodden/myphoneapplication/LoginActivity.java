@@ -57,7 +57,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
     /**
      * Keep track of the login task to ensure we can cancel it if requested.
      */
-    private UserLoginTask mAuthTask = null;
+    //private UserLoginTask mAuthTask = null;
 
     // UI references.
     private AutoCompleteTextView mEmailView;
@@ -159,9 +159,9 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
      * errors are presented and no actual login attempt is made.
      */
     private void attemptLogin() throws ExecutionException, InterruptedException {
-        if (mAuthTask != null) {
-            return;
-        }
+        //if (mAuthTask != null) {
+        //    return;
+        //}
 
         // Reset errors.
         mEmailView.setError(null);
@@ -204,11 +204,12 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
         } else {
             // Show a progress spinner, and kick off a background task to
             // perform the user login attempt.
-            showProgress(true);
-            mAuthTask = new UserLoginTask(email, password);
-            AsyncTask<Void, Void, Boolean> task = mAuthTask.execute();
+            //showProgress(true);
 
-            if( task.get() ) {
+            //mAuthTask = new UserLoginTask(email, password);
+            //AsyncTask<Void, Void, Boolean> task = mAuthTask.execute();
+
+            if( attemptLogin(email, password) ) {
                 Intent intent = new Intent(this, MainActivity.class);
                 startActivity(intent);
 
@@ -321,68 +322,24 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
      * Represents an asynchronous login/registration task used to authenticate
      * the user.
      */
-    public class UserLoginTask extends AsyncTask<Void, Void, Boolean> {
 
-        private final String mEmail;
-        private final String mPassword;
+    //Без AssyncTask.
+    private Boolean attemptLogin(String mEmail, String mPassword) {
+        for (String credential : DUMMY_CREDENTIALS) {
+            String[] pieces = credential.split(":");
+            if (pieces[0].equals(mEmail)) {
 
-        UserLoginTask(String email, String password) {
-            mEmail = email;
-            mPassword = password;
-        }
-
-        @Override
-        protected Boolean doInBackground(Void... params) {
-
-            Log.i("LOGIN", "doInBackground");
-
-            // TODO: attempt authentication against a network service.
-
-            try {
-                // Simulate network access.
-                Thread.sleep(2000);
-            } catch (InterruptedException e) {
-                return false;
-            }
-
-            for (String credential : DUMMY_CREDENTIALS) {
-                String[] pieces = credential.split(":");
-                if (pieces[0].equals(mEmail)) {
-
-                    Log.i("PWD", mEmail + ' ' + pieces[0]);
-                    Log.i("PWD", mPassword + ' ' + pieces[1]);
-                    // Account exists, return true if the password matches.
-                    return pieces[1].equals(mPassword);
-                }
-            }
-
-            // TODO: register the new account here.
-            return false;
-        }
-
-        @Override
-        protected void onPostExecute(final Boolean success) {
-
-            mAuthTask = null;
-            showProgress(false);
-
-            Log.i("LOGIN", "onPostExecute" + ' ' + success);
-
-            if (success) {
-                //finish();
-            } else {
-                Log.i("LOGIN", "error");
-
-                mPasswordView.setError(getString(R.string.error_incorrect_password));
-                mPasswordView.requestFocus();
+                Log.i("PWD", mEmail + ' ' + pieces[0]);
+                Log.i("PWD", mPassword + ' ' + pieces[1]);
+                // Account exists, return true if the password matches.
+                return pieces[1].equals(mPassword);
             }
         }
 
-        @Override
-        protected void onCancelled() {
-            mAuthTask = null;
-            showProgress(false);
-        }
+        mPasswordView.setError(getString(R.string.error_incorrect_password));
+        mPasswordView.requestFocus();
+
+        return false;
     }
 }
 
