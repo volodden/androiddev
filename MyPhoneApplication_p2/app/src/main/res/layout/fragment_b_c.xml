@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/fragments_B_and_C"
+    android:orientation="vertical"
+    android:layout_height="match_parent"
+    android:layout_width="match_parent"
+    tools:context="com.example.volodden.myphoneapplication.BCFragment">
+
+    <fragment
+        android:id="@+id/fragmentB"
+        android:name="com.example.volodden.myphoneapplication.BFragment"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_weight="0.5"
+        tools:layout="@layout/fragment_b"
+        tools:ignore="NestedWeights" />
+
+    <fragment
+        android:id="@+id/fragmentC"
+        android:name="com.example.volodden.myphoneapplication.CFragment"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_weight="0.5"
+        tools:layout="@layout/fragment_c" />
+
+</LinearLayout>
