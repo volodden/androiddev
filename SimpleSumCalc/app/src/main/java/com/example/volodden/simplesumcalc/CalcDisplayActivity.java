@@ -8,8 +8,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
-
-import org.w3c.dom.Text;
+import android.widget.Toast;
 
 public class CalcDisplayActivity extends AppCompatActivity {
 
@@ -50,6 +49,7 @@ public class CalcDisplayActivity extends AppCompatActivity {
         et.addTextChangedListener(new TextWatcher() {
 
             public void afterTextChanged(Editable s) {
+                changeResult();
             }
 
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
@@ -59,10 +59,15 @@ public class CalcDisplayActivity extends AppCompatActivity {
                 String text = String.valueOf(et.getText());
                 if( text.equals("") ) {
                     numberInTextField = 0;
+                    et.append("0");
                     Log.i("ChT 1", "0");
                 } else {
                     try {
                         numberInTextField = Integer.parseInt(text);
+                        if( text.charAt(0) == '0' && text.length() > 1 ) {
+                            et.setText(String.valueOf(numberInTextField));
+                            et.setSelection(et.getText().length());
+                        }
                     }
                     catch (Exception e) {
                         et.setText(String.valueOf(numberInTextField));
@@ -70,8 +75,6 @@ public class CalcDisplayActivity extends AppCompatActivity {
                     }
                     Log.i("ChT 2", String.valueOf(numberInTextField));
                 }
-
-                changeResult();
             }
         });
 
@@ -90,7 +93,19 @@ public class CalcDisplayActivity extends AppCompatActivity {
 
     void onClickOnButton(int value) {
 
+        int lastValue = numberInButtons;
         numberInButtons += value;
+
+        //Если значение в кнопочке переполнится.
+        if( value == 1 ) {
+            if( lastValue > numberInButtons ) {
+                numberInButtons = lastValue;
+            }
+        } else {
+            if( lastValue < numberInButtons ) {
+                numberInButtons = lastValue;
+            }
+        }
 
         String text = String.valueOf(numberInButtons);
 
@@ -102,7 +117,17 @@ public class CalcDisplayActivity extends AppCompatActivity {
     }
 
     void changeResult() {
+        Boolean isChange = false;
+
         int res = numberInButtons * numberInTextField;
+        if( res / numberInButtons != numberInTextField ) {
+            Toast toast = Toast.makeText(getApplicationContext(),
+                    "Числа слишком большие. Повторите ввод!", Toast.LENGTH_SHORT);
+            toast.show();
+            res = 0;
+            numberInTextField = 0;
+            isChange = true;
+        }
 
         Log.i("ChRes", String.valueOf(res));
 
@@ -111,6 +136,11 @@ public class CalcDisplayActivity extends AppCompatActivity {
         String sRes = getResources().getString(R.string.mult);
 
         twSum.setText(sRes + String.valueOf(res));
+
+        if( isChange ) {
+            et.setText(String.valueOf(numberInTextField));
+            et.setSelection(et.getText().length());
+        }
     }
 
     public void onClickOnMinus(View view) {
